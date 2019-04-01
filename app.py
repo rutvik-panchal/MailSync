@@ -1,9 +1,9 @@
 from flask import render_template,redirect,url_for,flash,request,session
 from myproject import db,app
-from myproject.models import users,sentmails
+from myproject.models import users
 from myproject.forms import loginForm,RegistrationForm,sendMailForm
 from flask_login import login_user,login_required,logout_user,LoginManager
-from myproject.methods import refreshMail,sendMail,getMail,checkAuth
+from myproject.methods import sendMail,getMail,checkAuth
 from flask import Markup
 
 
@@ -19,15 +19,13 @@ def welcome_user():
     form = sendMailForm()
     data = getMail(username,password)
     if form.validate_on_submit():
-        sendMail(username,password,form.to.data,form.subject.data,form.body.data)
-        newmail = sentmails(username,form.subject.data,form.body.data)
         db.session.add(newmail)
         db.session.commit()
         form.to.data=''
         form.subject.data=''
         form.body.data=''
 
-    return render_template('userpage.html',form=form,sender=data[1],body=Markup(data[0]))
+    return render_template('userpage.html',form=form,sender=data[0],body=data[1])
 
 @app.route('/logout')
 @login_required

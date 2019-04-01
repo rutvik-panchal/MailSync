@@ -43,21 +43,34 @@
 <div class="w3-main" style="margin-left:320px;">
 <a href="javascript:void(0)" class="w3-hide-large w3-red w3-button w3-right w3-margin-top w3-margin-right" onclick="document.getElementById('id01').style.display='block'"><i class="fa fa-pencil"></i></a>
 <div id="inbox" class="element">
-{% for i in range(1) %}
-{% if i is divisibleby(2) or i==0 %}
-<div class="outlookmail one">
-  <h2>{{ sender }}</h2>
-  <p class>{{ body }}}</p>
+{% for i in range(1,15) %}
+<div class="outlookmail one" onclick="toggler(modal{{i}})">
+  <h2>{{ sender[i] }}</h2>
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal{{i}}">
+    Show Message
+  </button>
   <hr class="my-4">
 </div>
-{% else %}
-<div class="outlookmail two">
-  <h2>This is the Sender</h2>
-  <p class="lead">This is the subject</p>
-  <hr class="my-4">
-  <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+<!-- Modal -->
+<div class="modal fade" id="modal{{i}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">{{ sender[i] }}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {{body[i]}}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>
-{% endif %}
 {%endfor%}
 </div>
 <div id="sent" class="element">
@@ -71,6 +84,11 @@
 <script>
   var openInbox = document.getElementById("myBtn");
   openInbox.click();
+
+  function toggler(divId) {
+
+      $("#" + divId).toggle();
+  }
 
 function w3_open() {
   document.getElementById("mySidebar").style.display = "block";

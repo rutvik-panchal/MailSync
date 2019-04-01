@@ -80,21 +80,35 @@ def getMail(user_mailid, password):
 
     con = auth(user,password,imap_url)
     con.select('INBOX')
+    sender = [15]
+    bodyarray = [15]
+    result, data1 = con.search(None, "ALL")
+    counter = 0
+    for num in data1[0].split() :
+        counter += 1
+    for i in range (-1,-15,-1) :
 
-    result, data = con.fetch(b'10','(RFC822)')
-    raw = email.message_from_bytes(data[0][1])
-    abcd = get_body(raw)
+        result, data = con.fetch(data1[0].split()[i],'(RFC822)')
+        raw = email.message_from_bytes(data[0][1])
+        sender.append(raw['FROM'])
+        abcd = get_body(raw)
+        bodyarray.append(abcd)
 
-    get_attachments(raw)
-    data=[abcd,raw['FROM']]
-    return data
 
-def refreshMail(user,password):
+    #get_attachments(raw)
+    info=[sender,bodyarray]
+    return info
+
+def getSent(user,password):
 
     imap_url = 'imap.gmail.com'
     #Where you want your attachments to be saved (ensure this directory exists)
     attachment_dir = 'your_attachment_dir'
     # sets up the auth
+
+    user = user_mailid
+    password = password
+
     def auth(user,password,imap_url):
         con = imaplib.IMAP4_SSL(imap_url)
         con.login(user,password)
@@ -131,8 +145,20 @@ def refreshMail(user,password):
         return msgs
 
     con = auth(user,password,imap_url)
-    con.select('INBOX')
+    con.select('SENT')
+    sender = [15]
+    bodyarray = [15]
+    result, data1 = con.search(None, "ALL")
+    counter = 0
+    for num in data1[0].split() :
 
-    result, data = con.fetch(b'10','(RFC822)')
-    raw = email.message_from_bytes(data[0][1])
-    get_attachments(raw)
+        result, data = con.fetch(data1[0].split()[i],'(RFC822)')
+        raw = email.message_from_bytes(data[0][1])
+        sender.append(raw['FROM'])
+        abcd = get_body(raw)
+        bodyarray.append(abcd)
+
+
+    #get_attachments(raw)
+    info=[sender,bodyarray]
+    return info

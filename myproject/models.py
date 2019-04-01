@@ -23,16 +23,3 @@ class users(db.Model,UserMixin):
 
     def __repr__(self):
         return f"Name : {self.name} Username: {self.email} password : {self.password}"
-
-class sentmails(db.Model):
-
-    id = db.Column(db.Integer,primary_key=True)
-    email_user = name = db.Column(db.String(64),index=True)
-    subject = db.Column(db.String(200))
-    body = db.Column(db.String(2000))
-
-    def __init__(self,email_user,subject,body):
-
-        self.email_user = email_user
-        self.subject = subject
-        self.body = body

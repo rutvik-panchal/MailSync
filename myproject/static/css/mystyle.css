@@ -2,7 +2,6 @@
   height: 50px;
 }
 .outlookmail{
-  height: 200px !important;
   padding: 20px !important;
 }
 .one{
@@ -27,4 +26,7 @@
   padding: 25px;
   font-size: 2.5em;
   font-weight: bold;
+}
+.modal-body p {
+    word-wrap: break-word !important;
 }

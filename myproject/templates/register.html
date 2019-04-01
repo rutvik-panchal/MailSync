@@ -1,0 +1,63 @@
+{% extends "basic.html" %}
+
+{% block content%}
+
+<div class = "spacer"></div>
+
+<div class="container login_container col-6">
+  <form method = 'POST'>
+    <div class="form-group">
+      <label for="exampleInputEmail1">Name</label>
+      {{  form.hidden_tag() }}
+      {{ form.name(class = 'form-control', placeholder="Enter Full Name") }}
+    </div>
+    <div class="form-group">
+      <label for="exampleInputEmail1">Email address</label>
+      {{ form.email(class = 'form-control', placeholder="Enter email" , id="email") }}
+      {%if validation == 1 %}
+        <div class="invalid-feedback">
+          <p>Please provide valid Account credentials<p>
+          <p> Some common mistakes</p>
+          <ul>
+            <li><p>Make sure you are creating a Account with Gmail credentials</p></li>
+            <li><p>Make sure you have allowed Less secure app for to access your Gmail Account <br> For more information <a href = "https://support.google.com/accounts/answer/6010255?hl=en"  target="_blank">Click here</a></p></li>
+          </ul>
+        </div>
+      {% endif %}
+
+    </div>
+    <div class="form-group">
+      <label for="exampleInputPassword1">Password</label>
+      {{ form.password(class = 'form-control', placeholder="Password" , id="pass") }}
+    </div>
+    <div class="form-group">
+      <label for="exampleInputPassword1">Confirm Password</label>
+      {{ form.password_confirm(class = 'form-control', placeholder="Password") }}
+
+        <div class="invalid-feedback">
+          Password do not match
+        </div>
+
+      <small id="emailHelp" class="form-text text-muted">We'll never share your password with anyone else.</small>
+    </div>
+    <div class="form-group form-check">
+      <input type="checkbox" class="form-check-input" id="exampleCheck1">
+      <label class="form-check-label" for="exampleCheck1">You may or may not select this. Doesn't matter</label>
+    </div>
+    {{ form.submit(class='btn btn-primary') }}
+
+  </form>
+
+
+</div>
+<<script type="text/javascript"1>
+  {%if validation == 1 %}
+    document.getElementById("email").classList.add("is-invalid");
+    document.getElementById("pass").classList.add("is-invalid");
+  {% endif %}
+  {% if form.password.errors %}
+    document.getElementById("pass").classList.add("is-invalid");
+  {% endif %}
+</script>
+
+{% endblock %}

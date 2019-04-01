@@ -1,0 +1,53 @@
+{% extends "basic.html" %}
+
+{% block content%}
+
+
+<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <div class="d-block w-100 jumbotron ">
+        <div class = "crdiv">
+          <h1 class="display-4">Sign Up Today</h1>
+          <p class="lead"><br>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.<br></p>
+          <a class="btn btn-primary btn-lg" href="{{url_for('register')}}" role="button">Create Account</a>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <div class="d-block w-100 jumbotron ">
+        <div class = "crdiv">
+          <h1 class="display-4">Get going now</h1>
+          <p class="lead"><br>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+          <a class="btn btn-primary btn-lg" href="{{url_for('register')}}" role="button">Create Account</a>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <div class="d-block w-100 jumbotron ">
+        <div class = "crdiv">
+          <h1 class="display-4">Manage your mails in a easier way</h1>
+          <p class="lead"><br>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+          <a class="btn btn-primary btn-lg" href="{{url_for('register')}}" role="button">Create Account</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+<div class = "spacer"></div>
+<div class = "secondDiv">
+  <h2> Experience MailSync on any Device </h2>
+  <p>The ease & simplicity of MailSync, wherever you are.</p>
+</div>
+
+
+
+{% endblock %}

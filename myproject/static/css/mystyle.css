@@ -1,0 +1,30 @@
+.spacer{
+  height: 50px;
+}
+.outlookmail{
+  height: 200px !important;
+  padding: 20px !important;
+}
+.one{
+  background-color:  #F5F5F5;
+}
+.click{
+  background-color: #C0C0C0;
+}
+.element{
+  display: none;
+}
+.crdiv{
+  height: 70%;
+  padding : 50px 150px !important;
+  margin : auto;
+}
+.secondDiv{
+  text-align: center;
+  margin: 0 auto;
+}
+.secondDiv h2{
+  padding: 25px;
+  font-size: 2.5em;
+  font-weight: bold;
+}

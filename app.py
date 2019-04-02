@@ -19,8 +19,7 @@ def welcome_user():
     form = sendMailForm()
     data = getMail(username,password)
     if form.validate_on_submit():
-        db.session.add(newmail)
-        db.session.commit()
+        sendMail(username,password,form.to.data,form.subject.data,form.body.data)
         form.to.data=''
         form.subject.data=''
         form.body.data=''

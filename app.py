@@ -3,7 +3,7 @@ from myproject import db,app
 from myproject.models import users
 from myproject.forms import loginForm,RegistrationForm,sendMailForm
 from flask_login import login_user,login_required,logout_user,LoginManager
-from myproject.methods import sendMail,getMail,checkAuth
+from myproject.methods import sendMail,getMail,checkAuth,getSent
 from flask import Markup
 
 
@@ -23,8 +23,41 @@ def welcome_user():
         form.to.data=''
         form.subject.data=''
         form.body.data=''
+    title = "inbox"
 
-    return render_template('userpage.html',form=form,sender=data[0],body=data[1])
+    return render_template('userpage.html',form=form,sender=data[0],body=data[1],title = title)
+
+@app.route('/sent',methods=['GET', 'POST'])
+@login_required
+def showsent():
+    username = session['username']
+    password = session['password']
+    form = sendMailForm()
+    data = ["hello","hello"]
+    if form.validate_on_submit():
+        sendMail(username,password,form.to.data,form.subject.data,form.body.data)
+        form.to.data=''
+        form.subject.data=''
+        form.body.data=''
+    title = "sent"
+
+    return render_template('userpage.html',form=form,sender=data[0],body=data[1],title = title)
+
+@app.route('/trash',methods=['GET', 'POST'])
+@login_required
+def showtrash():
+    username = session['username']
+    password = session['password']
+    form = sendMailForm()
+    data = ["hello","hello"]
+    if form.validate_on_submit():
+        sendMail(username,password,form.to.data,form.subject.data,form.body.data)
+        form.to.data=''
+        form.subject.data=''
+        form.body.data=''
+    title = "sent"
+
+    return render_template('userpage.html',form=form,sender=data[0],body=data[1],title = title)
 
 @app.route('/logout')
 @login_required

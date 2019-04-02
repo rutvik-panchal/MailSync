@@ -106,8 +106,6 @@ def getSent(user,password):
     attachment_dir = 'your_attachment_dir'
     # sets up the auth
 
-    user = user_mailid
-    password = password
 
     def auth(user,password,imap_url):
         con = imaplib.IMAP4_SSL(imap_url)
@@ -133,9 +131,7 @@ def getSent(user,password):
                 with open(filePath,'wb') as f:
                     f.write(part.get_payload(decode=True))
     #search for a particular email
-    def search(key,value,con):
-        result, data  = con.search(None,key,'"{}"'.format(value))
-        return data
+
     #extracts emails from byte array
     def get_emails(result_bytes):
         msgs = []
@@ -148,16 +144,15 @@ def getSent(user,password):
     con.select('SENT')
     sender = [15]
     bodyarray = [15]
-    result, data1 = con.search(None, "ALL")
-    counter = 0
+    result, data1 = con.uid('SEARCH',None,'All')
+
     for num in data1[0].split() :
 
-        result, data = con.fetch(data1[0].split()[i],'(RFC822)')
+        result, data = con.fetch(num,'(RFC822)')
         raw = email.message_from_bytes(data[0][1])
         sender.append(raw['FROM'])
         abcd = get_body(raw)
         bodyarray.append(abcd)
-
 
     #get_attachments(raw)
     info=[sender,bodyarray]

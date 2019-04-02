@@ -6,10 +6,11 @@
 
 <nav class="w3-sidebar w3-bar-block w3-collapse w3-white w3-animate-left w3-card" style="z-index:3;width:320px;" id="mySidebar">
   <a href="javascript:void(0)" class="w3-bar-item w3-button w3-dark-grey w3-button w3-hover-black w3-left-align" onclick="document.getElementById('id01').style.display='block'">New Message <i class="w3-padding fa fa-pencil"></i></a>
-  <a id="myBtn" onclick="inboxclick('myBtn')" href="javascript:void(0)" class="w3-bar-item w3-button "><i class="fa fa-inbox w3-margin-right"></i>Inbox</a>
-  <a id = "sentid" onclick="sentclick('sentid')" href="#" class="w3-bar-item w3-button "><i class="fa fa-paper-plane w3-margin-right"></i>Sent</a>
-  <a id = "trashid" onclick="trashclick('trashid')" href="#" class="w3-bar-item w3-button "><i class="fa fa-trash w3-margin-right"></i>Trash</a>
+  <a id="myBtn" onclick="inboxclick('myBtn')" href="{{url_for('welcome_user')}}" class="w3-bar-item w3-button "><i class="fa fa-inbox w3-margin-right"></i>Inbox</a>
+  <a id = "sentid" onclick="" href="{{url_for('showsent')}}" class="w3-bar-item w3-button "><i class="fa fa-paper-plane w3-margin-right"></i>Sent</a>
+  <a id = "trashid" onclick="trashclick('trashid')" href="{{url_for('showtrash')}}" class="w3-bar-item w3-button "><i class="fa fa-trash w3-margin-right"></i>Trash</a>
 </nav>
+
 
 <!-- Modal that pops up when you click on "New Message" -->
 <div id="id01" class="w3-modal" style="z-index:4">
@@ -29,7 +30,7 @@
       {{form.body(class="w3-input w3-border w3-margin-bottom" , placeholder="What's on your mind?" , cols="35", rows="10")}}
       <div class="w3-section">
         <a class="w3-button w3-red" onclick="document.getElementById('id01').style.display='none'">Cancel  <i class="fa fa-remove"></i></a>
-        {{form.submit(class="w3-button w3-light-grey w3-right", onclick="document.getElementById('id01').style.display='none'")}}<i class="fa fa-paper-plane"></i>
+        {{form.submit(class="w3-button w3-light-grey w3-right", onclick="document.getElementById('id01').style.display='none'")}}<i class="fa fa-paper-plane w3-right"></i>
       </div>
     </div>
     </form>
@@ -42,7 +43,9 @@
 <!-- Page content -->
 <div class="w3-main" style="margin-left:320px;">
 <a href="javascript:void(0)" class="w3-hide-large w3-red w3-button w3-right w3-margin-top w3-margin-right" onclick="document.getElementById('id01').style.display='block'"><i class="fa fa-pencil"></i></a>
-<div id="inbox" class="element">
+{% if title == "inbox" %}
+<div id="inbox" class="element" style="display : block">
+
 {% for i in range(1,15) %}
 <div class="outlookmail one" onclick="toggler(modal{{i}})">
   <h2>{{ sender[i] }}</h2>
@@ -73,17 +76,20 @@
 </div>
 {%endfor%}
 </div>
+{% elif title =="sent"%}
 <div id="sent" class="element">
   <p>Sent</p>
 </div>
+{% elif title =="trash" %}
 <div id="trash" class="element">
   <p>trash</p>
 </div>
+{% endif %}
 </div>
 
 <script>
   var openInbox = document.getElementById("myBtn");
-  openInbox.click();
+
 
   function toggler(divId) {
 
@@ -111,21 +117,7 @@ function myFunc(id) {
     x.previousElementSibling.className.replace(" w3-red", "");
   }
 }
- function inboxclick(id){
-   document.getElementById('inbox').style.display='block'
-   document.getElementById('sent').style.display='none'
-   document.getElementById('trash').style.display='none'
- }
- function trashclick(id){
-   document.getElementById('inbox').style.display='none'
-   document.getElementById('sent').style.display='none'
-   document.getElementById('trash').style.display='block'
- }
- function sentclick(id){
-   document.getElementById('inbox').style.display='none'
-   document.getElementById('sent').style.display='block'
-   document.getElementById('trash').style.display='none'
- }
+
 
 
 </script>

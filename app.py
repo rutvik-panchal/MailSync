@@ -3,7 +3,7 @@ from myproject import db,app
 from myproject.models import users
 from myproject.forms import loginForm,RegistrationForm,sendMailForm
 from flask_login import login_user,login_required,logout_user,LoginManager
-from myproject.methods import sendMail,getMail,checkAuth,getSent
+from myproject.methods import sendMail,getMail,checkAuth,getSent,getTrash
 from flask import Markup
 
 
@@ -33,15 +33,14 @@ def showsent():
     username = session['username']
     password = session['password']
     form = sendMailForm()
-    data = ["hello","hello"]
+    data = getSent(username,password)
     if form.validate_on_submit():
         sendMail(username,password,form.to.data,form.subject.data,form.body.data)
         form.to.data=''
         form.subject.data=''
         form.body.data=''
     title = "sent"
-
-    return render_template('userpage.html',form=form,sender=data[0],body=data[1],title = title)
+    return render_template('userpage.html',form=form,sender=data[0],body=data[1],title = title,len = 2)
 
 @app.route('/trash',methods=['GET', 'POST'])
 @login_required
@@ -49,13 +48,13 @@ def showtrash():
     username = session['username']
     password = session['password']
     form = sendMailForm()
-    data = ["hello","hello"]
+    data = getTrash(username,password)
     if form.validate_on_submit():
         sendMail(username,password,form.to.data,form.subject.data,form.body.data)
         form.to.data=''
         form.subject.data=''
         form.body.data=''
-    title = "sent"
+    title = "trash"
 
     return render_template('userpage.html',form=form,sender=data[0],body=data[1],title = title)
 

@@ -18,14 +18,23 @@ def checkAuth(email_user,email_password):
         return 0
 
 
-def sendMail(email_user,email_password,email_send,subject,body):
+def sendMail(email_user,email_password,email_send,subject,body,filename):
+
 
     msg = MIMEMultipart()
     msg['From'] = email_user
     msg['To'] = email_send
     msg['Subject'] = subject
-
     msg.attach(MIMEText(body,'plain'))
+
+    if filename is not None :
+        attachment  =open(filename,'rb')
+        part = MIMEBase('application','octet-stream')
+        part.set_payload((attachment).read())
+        encoders.encode_base64(part)
+        part.add_header('Content-Disposition',"attachment; filename= "+filename)
+        msg.attach(part)
+
     text = msg.as_string()
     server = smtplib.SMTP('smtp.gmail.com',587)
     server.starttls()

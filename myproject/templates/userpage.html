@@ -20,7 +20,7 @@
        class="w3-button w3-red w3-right w3-xxlarge"><i class="fa fa-remove"></i></span>
       <h2>Send Mail</h2>
     </div>
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data">
     <div class="w3-panel">
       {{  form.hidden_tag() }}
       <label>To</label>
@@ -28,6 +28,8 @@
       <label>Subject</label>
       {{form.subject(class="w3-input w3-border w3-margin-bottom")}}
       {{form.body(class="w3-input w3-border w3-margin-bottom" , placeholder="What's on your mind?" , cols="35", rows="10")}}
+      <p>Attachment</p>
+      {{form.att()}}
       <div class="w3-section">
         <a class="w3-button w3-red" onclick="document.getElementById('id01').style.display='none'">Cancel  <i class="fa fa-remove"></i></a>
         {{form.submit(class="w3-button w3-light-grey w3-right", onclick="document.getElementById('id01').style.display='none'")}}<i class="fa fa-paper-plane w3-right"></i>

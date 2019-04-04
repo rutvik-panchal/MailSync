@@ -4,8 +4,14 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.base import MIMEBase
 from email import encoders
 
-
-
+def toMarkup(tuple_input):
+	s= tuple_input
+	html = []
+	for i in range(len(s)):
+		work = str(s[i].decode('utf-8'))
+		work = work.replace("\r\n","</br>")
+		html.append(work)
+	return tuple(html)
 
 def checkAuth(email_user,email_password):
     try:

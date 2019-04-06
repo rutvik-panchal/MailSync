@@ -25,9 +25,10 @@ def welcome_user():
             f.save(f.filename)
             sendMail(username,password,form.to.data,form.subject.data,form.body.data,form.att.data.filename)
             os.remove(form.att.data.filename)
-            os.remove(form.att.data.filename)
-        else :
-            sendMail(username,password,form.to.data,form.subject.data,form.body.data)
+            print("in")
+
+
+        sendMail(username,password,form.to.data,form.subject.data,form.body.data)
         form.to.data=''
         form.subject.data=''
         form.body.data=''
@@ -35,7 +36,6 @@ def welcome_user():
     data = getMail(username,password)
     title = "inbox"
 
-    #bodyCheck = toMarkup(data[1])
 
     return render_template('userpage.html',form=form,sender=data[0],body=data[1],title = title)
 

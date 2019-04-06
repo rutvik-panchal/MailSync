@@ -22,5 +22,5 @@ class sendMailForm(FlaskForm):
     to = StringField(validators=[DataRequired()])
     subject = StringField(validators=[DataRequired()])
     body = StringField(widget=TextArea())
-    att = FileField(validators=[FileRequired()])
+    att = FileField()
     submit = SubmitField("Send")

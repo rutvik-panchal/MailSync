@@ -21,12 +21,17 @@ def welcome_user():
 
     if form.validate_on_submit():
         f = form.att.data
-        f.save(f.filename)
-        sendMail(username,password,form.to.data,form.subject.data,form.body.data,form.att.data.filename)
+        if f is not None :
+            f.save(f.filename)
+            sendMail(username,password,form.to.data,form.subject.data,form.body.data,form.att.data.filename)
+            os.remove(form.att.data.filename)
+            os.remove(form.att.data.filename)
+        else :
+            sendMail(username,password,form.to.data,form.subject.data,form.body.data)
         form.to.data=''
         form.subject.data=''
         form.body.data=''
-        os.remove(form.att.data.filename)
+
     data = getMail(username,password)
     title = "inbox"
 

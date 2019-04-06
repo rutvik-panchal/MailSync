@@ -24,7 +24,7 @@ def checkAuth(email_user,email_password):
         return 0
 
 
-def sendMail(email_user,email_password,email_send,subject,body,filename):
+def sendMail(email_user,email_password,email_send,subject,body,filename=None):
 
 
     msg = MIMEMultipart()

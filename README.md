@@ -1,6 +1,6 @@
 # MailSync
-Required Libraries : 
-Flask 
+Required Libraries : __
+Flask _
 Flask-WTF 
 Flask-SQLAlchemy 
 Flask-Migrate 
